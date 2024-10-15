@@ -23,11 +23,14 @@ window.addEventListener('resize', () => {
     renderer.setSize(window.innerWidth, window.innerHeight);
 });
 
-function animate() {
-    requestAnimationFrame(animate);
-    sphere.rotation.y += 0.01;
+let previousTime = performance.now();
 
+function animate(currentTime) {
+    requestAnimationFrame(animate);
+    const deltaTime = (currentTime - previousTime) / 1000;
+    previousTime = currentTime;
+    sphere.rotation.y += deltaTime * Math.PI * 0.1;
     renderer.render(scene, camera);
 }
 
-animate();
+animate(previousTime);
