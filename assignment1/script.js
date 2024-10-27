@@ -44,6 +44,11 @@ roadLeftTop.rotation.x = -Math.PI / 2;
 roadLeftTop.position.set(-2, 0.01, 4);
 scene.add(roadLeftTop);
 
+const roadRight = new THREE.Mesh(new THREE.PlaneGeometry(4, 2), roadMaterial);
+roadRight.rotation.x = -Math.PI / 2;
+roadRight.position.set(2, 0.01, -3);
+scene.add(roadRight);
+
 const roadLeftBottom = new THREE.Mesh(
   new THREE.PlaneGeometry(4, 2),
   roadMaterial
@@ -67,7 +72,7 @@ function createBuilding(x, z, material, width, height, depth, rotationY = 0) {
 
 createBuilding(-4, 4, whiteBuildingMaterial, 3, 3, 9);
 createBuilding(-4, -5, blueBuildingMaterial, 3, 3, 9);
-createBuilding(6, 4, whiteBuildingMaterial, 3, 3, 7, Math.PI / 4);
+createBuilding(6, -1, whiteBuildingMaterial, 3, 3, 7, Math.PI / 4);
 
 const sphereMaterial = new THREE.MeshBasicMaterial({ color: "red" });
 const sphere = new THREE.Mesh(
@@ -88,6 +93,11 @@ gsap.to(sphere.position, {
     { x: 0, z: -5 },
     { x: -4, z: -5 },
     { x: 0, z: -5 },
+    { x: 0, z: -3 },
+    { x: 2, z: -3 },
+    { x: 6, z: -1 },
+    { x: 2, z: -3 },
+    { x: 0, z: -3 },
     { x: 0, z: 0 },
   ],
 });
