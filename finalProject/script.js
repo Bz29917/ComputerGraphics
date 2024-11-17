@@ -68,11 +68,15 @@ for (let i = -20; i <= 20; i += 10) {
 
 const loader = new GLTFLoader();
 
+let sculpture;
+const interactableObjects = [];
+
 loader.load("models/sculpture.glb", (gltf) => {
-  const sculpture = gltf.scene;
+  sculpture = gltf.scene;
   sculpture.position.set(0, 0, 0);
   sculpture.scale.set(6, 6, 6);
   scene.add(sculpture);
+  interactableObjects.push(sculpture);
 });
 
 const paintingTexture = new THREE.TextureLoader().load("textures/mona.jpg");
@@ -81,6 +85,7 @@ const planeMaterial = new THREE.MeshBasicMaterial({ map: paintingTexture });
 const plane = new THREE.Mesh(planeGeometry, planeMaterial);
 plane.position.set(0, 5, -24.9);
 scene.add(plane);
+interactableObjects.push(plane);
 
 const leftPaintingTexture = new THREE.TextureLoader().load(
   "textures/painting1.jpg"
@@ -97,6 +102,7 @@ const leftWallPainting = new THREE.Mesh(
 leftWallPainting.position.set(-24.9, 5, 10);
 leftWallPainting.rotation.y = Math.PI / 2;
 scene.add(leftWallPainting);
+interactableObjects.push(leftWallPainting);
 
 const rightPaintingTexture = new THREE.TextureLoader().load(
   "textures/painting2.jpg"
@@ -113,10 +119,55 @@ const rightWallPainting = new THREE.Mesh(
 rightWallPainting.position.set(24.9, 5, -10);
 rightWallPainting.rotation.y = -Math.PI / 2;
 scene.add(rightWallPainting);
+interactableObjects.push(rightWallPainting);
+
+const raycaster = new THREE.Raycaster();
+const mouse = new THREE.Vector2();
+
+window.addEventListener("mousemove", (event) => {
+  mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+  mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+});
+
+function displayArtworkInfo(object) {
+  const infoBox = document.getElementById("infoBox");
+  if (!infoBox) return;
+  let infoText = "";
+
+  if (object === plane) {
+    infoText = "Mona Lisa by Leonardo da Vinci";
+  } else if (object === leftWallPainting) {
+    infoText = "Random Phobia";
+  } else if (object === rightWallPainting) {
+    infoText = "Upcoming Grand Theft Auto VI";
+  } else if (object === sculpture) {
+    infoText = "Modern Sculpture by Random Artist";
+  }
+
+  infoBox.innerText = infoText;
+  infoBox.style.display = "block";
+}
+
+function hideArtworkInfo() {
+  const infoBox = document.getElementById("infoBox");
+  if (infoBox) {
+    infoBox.style.display = "none";
+  }
+}
 
 function animate() {
   requestAnimationFrame(animate);
   controls.update();
+
+  raycaster.setFromCamera(mouse, camera);
+  const intersects = raycaster.intersectObjects(interactableObjects);
+
+  if (intersects.length > 0) {
+    displayArtworkInfo(intersects[0].object);
+  } else {
+    hideArtworkInfo();
+  }
+
   renderer.render(scene, camera);
 }
 

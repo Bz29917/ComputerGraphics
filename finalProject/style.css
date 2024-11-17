@@ -1,0 +1,42 @@
+body {
+  margin: 0;
+  overflow: hidden;
+  font-family: Arial, sans-serif;
+  background-color: #e0e0e0;
+}
+
+#gallery {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+}
+
+#infoBox {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 15px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  max-width: 300px;
+  font-size: 14px;
+  color: #333;
+  transition: opacity 0.3s ease-in-out;
+  display: none;
+}
+
+#infoBox.visible {
+  display: block;
+  opacity: 1;
+}
+
+@media screen and (max-width: 768px) {
+  #infoBox {
+    top: 10px;
+    left: 10px;
+    font-size: 12px;
+    padding: 10px;
+  }
+}
