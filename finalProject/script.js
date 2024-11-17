@@ -53,40 +53,70 @@ rightWall.rotation.y = -Math.PI / 2;
 rightWall.position.set(25, 5, 0);
 scene.add(rightWall);
 
+const columnGeometry = new THREE.CylinderGeometry(0.5, 0.5, 10, 32);
+const columnMaterial = new THREE.MeshStandardMaterial({ color: 0xd3d3d3 });
+
+for (let i = -20; i <= 20; i += 10) {
+  const leftColumn = new THREE.Mesh(columnGeometry, columnMaterial);
+  leftColumn.position.set(-22, 5, i);
+  scene.add(leftColumn);
+
+  const rightColumn = new THREE.Mesh(columnGeometry, columnMaterial);
+  rightColumn.position.set(22, 5, i);
+  scene.add(rightColumn);
+}
+
 const loader = new GLTFLoader();
 
 loader.load("models/sculpture.glb", (gltf) => {
   const sculpture = gltf.scene;
-  sculpture.position.set(-10, 0, 0);
-  sculpture.scale.set(1.5, 1.5, 1.5);
+  sculpture.position.set(0, 0, 0);
+  sculpture.scale.set(6, 6, 6);
   scene.add(sculpture);
 });
 
-const paintingTexture = new THREE.TextureLoader().load("textures/painting.jpg");
-const planeGeometry = new THREE.PlaneGeometry(3, 4);
+const paintingTexture = new THREE.TextureLoader().load("textures/mona.jpg");
+const planeGeometry = new THREE.PlaneGeometry(7, 9);
 const planeMaterial = new THREE.MeshBasicMaterial({ map: paintingTexture });
 const plane = new THREE.Mesh(planeGeometry, planeMaterial);
 plane.position.set(0, 5, -24.9);
 scene.add(plane);
 
-const sphereGeometry = new THREE.SphereGeometry(0.75, 32, 32);
-const sphereMaterial = new THREE.MeshStandardMaterial({
-  color: 0x20b2aa,
-  emissive: 0x112244,
+const leftPaintingTexture = new THREE.TextureLoader().load(
+  "textures/painting1.jpg"
+);
+const leftPaintingGeometry = new THREE.PlaneGeometry(7, 9);
+const leftPaintingMaterial = new THREE.MeshBasicMaterial({
+  map: leftPaintingTexture,
 });
-const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
-sphere.position.set(10, 0.75, 0);
-scene.add(sphere);
 
-function animateSphere() {
-  sphere.rotation.y += 0.01;
-  sphere.rotation.x += 0.005;
-}
+const leftWallPainting = new THREE.Mesh(
+  leftPaintingGeometry,
+  leftPaintingMaterial
+);
+leftWallPainting.position.set(-24.9, 5, 10);
+leftWallPainting.rotation.y = Math.PI / 2;
+scene.add(leftWallPainting);
+
+const rightPaintingTexture = new THREE.TextureLoader().load(
+  "textures/painting2.jpg"
+);
+const rightPaintingGeometry = new THREE.PlaneGeometry(7, 9);
+const rightPaintingMaterial = new THREE.MeshBasicMaterial({
+  map: rightPaintingTexture,
+});
+
+const rightWallPainting = new THREE.Mesh(
+  rightPaintingGeometry,
+  rightPaintingMaterial
+);
+rightWallPainting.position.set(24.9, 5, -10);
+rightWallPainting.rotation.y = -Math.PI / 2;
+scene.add(rightWallPainting);
 
 function animate() {
   requestAnimationFrame(animate);
   controls.update();
-  animateSphere();
   renderer.render(scene, camera);
 }
 
