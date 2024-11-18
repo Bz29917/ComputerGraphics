@@ -76,7 +76,12 @@ loader.load("models/sculpture.glb", (gltf) => {
   sculpture.position.set(0, 0, 0);
   sculpture.scale.set(6, 6, 6);
   scene.add(sculpture);
-  interactableObjects.push(sculpture);
+  sculpture.traverse((child) => {
+    if (child.isMesh) {
+      interactableObjects.push(child);
+      child.userData.parentSculpture = sculpture;
+    }
+  });
 });
 
 const paintingTexture = new THREE.TextureLoader().load("textures/mona.jpg");
@@ -133,14 +138,13 @@ function displayArtworkInfo(object) {
   const infoBox = document.getElementById("infoBox");
   if (!infoBox) return;
   let infoText = "";
-
   if (object === plane) {
     infoText = "Mona Lisa by Leonardo da Vinci";
   } else if (object === leftWallPainting) {
     infoText = "Random Phobia";
   } else if (object === rightWallPainting) {
     infoText = "Upcoming Grand Theft Auto VI";
-  } else if (object === sculpture) {
+  } else if (object.userData.parentSculpture === sculpture) {
     infoText = "Modern Sculpture by Random Artist";
   }
 
