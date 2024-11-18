@@ -20,21 +20,35 @@ document.getElementById("gallery").appendChild(renderer.domElement);
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;
 
-const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
 scene.add(ambientLight);
 
-const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+const directionalLight = new THREE.DirectionalLight(0xffeedd, 0.8);
 directionalLight.position.set(5, 10, 7.5);
 scene.add(directionalLight);
 
+const ceilingLight1 = new THREE.PointLight(0xfff1e0, 0.6, 50);
+ceilingLight1.position.set(-10, 8, 0);
+scene.add(ceilingLight1);
+
+const ceilingLight2 = new THREE.PointLight(0xfff1e0, 0.6, 50);
+ceilingLight2.position.set(10, 8, 0);
+scene.add(ceilingLight2);
+
+const floorTexture = new THREE.TextureLoader().load("textures/wood_floor.jpg");
+floorTexture.wrapS = floorTexture.wrapT = THREE.RepeatWrapping;
+floorTexture.repeat.set(10, 10);
+const floorMaterial = new THREE.MeshStandardMaterial({ map: floorTexture });
 const floorGeometry = new THREE.PlaneGeometry(50, 50);
-const floorMaterial = new THREE.MeshStandardMaterial({ color: 0x808080 });
 const floor = new THREE.Mesh(floorGeometry, floorMaterial);
 floor.rotation.x = -Math.PI / 2;
 floor.position.y = 0;
 scene.add(floor);
 
-const wallMaterial = new THREE.MeshStandardMaterial({ color: 0xffffff });
+const wallTexture = new THREE.TextureLoader().load("textures/wall_texture.jpg");
+wallTexture.wrapS = wallTexture.wrapT = THREE.RepeatWrapping;
+wallTexture.repeat.set(4, 2);
+const wallMaterial = new THREE.MeshStandardMaterial({ map: wallTexture });
 
 const backWallGeometry = new THREE.PlaneGeometry(50, 10);
 const backWall = new THREE.Mesh(backWallGeometry, wallMaterial);
