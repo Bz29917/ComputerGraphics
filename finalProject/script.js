@@ -140,6 +140,43 @@ rightWallPainting.rotation.y = -Math.PI / 2;
 scene.add(rightWallPainting);
 interactableObjects.push(rightWallPainting);
 
+const logoTexture = new THREE.TextureLoader().load("textures/seeu.jpg");
+const logoGeometry = new THREE.PlaneGeometry(6, 6);
+const logoMaterial = new THREE.MeshBasicMaterial({
+  map: logoTexture,
+  transparent: true,
+});
+
+const logoRight = new THREE.Mesh(logoGeometry, logoMaterial);
+logoRight.position.set(10, 7, -24.8);
+scene.add(logoRight);
+
+const logoLeft = new THREE.Mesh(logoGeometry, logoMaterial);
+logoLeft.position.set(-10, 7, -24.8);
+scene.add(logoLeft);
+
+const ceilingGeometry = new THREE.CylinderGeometry(
+  25,
+  25,
+  50,
+  32,
+  1,
+  true,
+  0,
+  Math.PI
+);
+const brickTexture = new THREE.TextureLoader().load("textures/brick.jpg");
+brickTexture.wrapS = brickTexture.wrapT = THREE.RepeatWrapping;
+brickTexture.repeat.set(8, 8);
+const ceilingMaterial = new THREE.MeshStandardMaterial({
+  map: brickTexture,
+  side: THREE.DoubleSide,
+});
+const ceiling = new THREE.Mesh(ceilingGeometry, ceilingMaterial);
+ceiling.rotation.z = Math.PI / 2;
+ceiling.position.set(0, 10, 0);
+scene.add(ceiling);
+
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
 
