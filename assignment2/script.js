@@ -27,22 +27,22 @@ controls.maxPolarAngle = Math.PI / 2;
 const textureLoader = new THREE.TextureLoader();
 const classroomMaterials = [
   new THREE.MeshBasicMaterial({
-    map: textureLoader.load("./textures/wall.jpg"),
+    map: textureLoader.load("/textures/wall.jpg"),
   }),
   new THREE.MeshBasicMaterial({
-    map: textureLoader.load("./textures/wall.jpg"),
+    map: textureLoader.load("/textures/wall.jpg"),
   }),
   new THREE.MeshBasicMaterial({
-    map: textureLoader.load("./textures/ceiling.jpg"),
+    map: textureLoader.load("/textures/ceiling.jpg"),
   }),
   new THREE.MeshBasicMaterial({
-    map: textureLoader.load("./textures/floor.jpg"),
+    map: textureLoader.load("/textures/floor.jpg"),
   }),
   new THREE.MeshBasicMaterial({
-    map: textureLoader.load("./textures/wall.jpg"),
+    map: textureLoader.load("/textures/wall.jpg"),
   }),
   new THREE.MeshBasicMaterial({
-    map: textureLoader.load("./textures/wall.jpg"),
+    map: textureLoader.load("/textures/wall.jpg"),
   }),
 ];
 classroomMaterials.forEach((mat) => (mat.side = THREE.BackSide));
@@ -63,7 +63,7 @@ const windowGeometry = new THREE.BoxGeometry(
   windowDepth
 );
 const windowMaterial = new THREE.MeshBasicMaterial({
-  map: textureLoader.load("./textures/window.jpg"),
+  map: textureLoader.load("/textures/window.jpg"),
   transparent: true,
   opacity: 0.8,
 });
@@ -129,9 +129,9 @@ deskPositions.forEach((deskPos) => {
       deskPos[1] + offset[1],
       deskPos[2] + offset[2],
     ];
-    loadModel("./models/Chair.glb", chairPos, [0.6, 0.6, 0.6]);
+    loadModel("/models/Chair.glb", chairPos, [0.6, 0.6, 0.6]);
   });
-  loadModel("./models/Desk.glb", deskPos, [1, 1, 1]);
+  loadModel("/models/Desk.glb", deskPos, [1, 1, 1]);
 });
 
 function animate() {
