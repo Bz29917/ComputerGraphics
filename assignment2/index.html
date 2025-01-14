@@ -1,13 +1,100 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Classroom</title>
-    <link rel="stylesheet" href="./style.css" />
+    <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
   </head>
   <body>
-    <canvas class="webgl"></canvas>
-    <script type="module" src="./script.js"></script>
+    <a-scene>
+      <!-- Camera with better initial position -->
+      <a-entity position="0 1.6 2">
+        <a-camera look-controls wasd-controls></a-camera>
+      </a-entity>
+
+      <!-- Classroom Box -->
+      <a-box position="0 2 0" scale="8 4 8" material="side: back">
+        <a-plane material="src: textures/wall.jpg; repeat: 2 1" position="0.49 0 0" rotation="0 -90 0" scale="1 1 1"></a-plane>
+        <a-plane material="src: textures/wall.jpg; repeat: 2 1" position="-0.49 0 0" rotation="0 90 0" scale="1 1 1"></a-plane>
+        <a-plane material="src: textures/ceiling.jpg; repeat: 2 2" position="0 0.49 0" rotation="90 0 0" scale="1 1 1"></a-plane>
+        <a-plane material="src: textures/floor.jpg; repeat: 2 2" position="0 -0.49 0" rotation="-90 0 0" scale="1 1 1"></a-plane>
+        <a-plane material="src: textures/wall.jpg; repeat: 2 1" position="0 0 0.49" rotation="0 180 0" scale="1 1 1"></a-plane>
+        <a-plane material="src: textures/wall.jpg; repeat: 2 1" position="0 0 -0.49" scale="1 1 1"></a-plane>
+      </a-box>
+
+      <!-- Window with reduced opacity -->
+      <a-entity position="0 2 -3.95">
+        <a-box width="2" height="1.5" depth="0.1" material="src: textures/window.jpg; transparent: true; opacity: 0.85"></a-box>
+        <a-box width="2.2" height="1.7" depth="0.15" material="color: #654321" position="0 0 -0.03"></a-box>
+      </a-entity>
+
+      <!-- Desks and Chairs -->
+      <a-entity id="furniture">
+        <!-- Row 1 -->
+        <a-entity position="-2 0 -1.5">
+          <a-entity gltf-model="models/Desk.glb" scale="0.8 0.8 0.8"></a-entity>
+          <a-entity gltf-model="models/Chair.glb" position="-0.4 0 -0.6" scale="0.5 0.5 0.5"></a-entity>
+          <a-entity gltf-model="models/Chair.glb" position="0.4 0 -0.6" scale="0.5 0.5 0.5"></a-entity>
+        </a-entity>
+        <a-entity position="2 0 -1.5">
+          <a-entity gltf-model="models/Desk.glb" scale="0.8 0.8 0.8"></a-entity>
+          <a-entity gltf-model="models/Chair.glb" position="-0.4 0 -0.6" scale="0.5 0.5 0.5"></a-entity>
+          <a-entity gltf-model="models/Chair.glb" position="0.4 0 -0.6" scale="0.5 0.5 0.5"></a-entity>
+        </a-entity>
+        <!-- Row 2 -->
+        <a-entity position="-2 0 1">
+          <a-entity gltf-model="models/Desk.glb" scale="0.8 0.8 0.8"></a-entity>
+          <a-entity gltf-model="models/Chair.glb" position="-0.4 0 -0.6" scale="0.5 0.5 0.5"></a-entity>
+          <a-entity gltf-model="models/Chair.glb" position="0.4 0 -0.6" scale="0.5 0.5 0.5"></a-entity>
+        </a-entity>
+        <a-entity position="2 0 1">
+          <a-entity gltf-model="models/Desk.glb" scale="0.8 0.8 0.8"></a-entity>
+          <a-entity gltf-model="models/Chair.glb" position="-0.4 0 -0.6" scale="0.5 0.5 0.5"></a-entity>
+          <a-entity gltf-model="models/Chair.glb" position="0.4 0 -0.6" scale="0.5 0.5 0.5"></a-entity>
+        </a-entity>
+      </a-entity>
+
+      <!-- Enhanced Pendant Lights -->
+      <!-- First Pendant Light -->
+      <a-entity position="-1.5 3.5 0">
+        <!-- Black Pendant Housing -->
+        <a-cylinder color="#000000" height="0.3" radius="0.15" position="0 0 0"></a-cylinder>
+        <!-- Black Wire -->
+        <a-cylinder color="#000000" height="0.5" radius="0.02" position="0 0.25 0"></a-cylinder>
+        <!-- Main spotlight pointing down -->
+        <a-light type="spot" color="#FFE5CC" intensity="1.7" angle="75" penumbra="0.8" decay="2" distance="8" position="0 -0.15 0" rotation="-90 0 0"></a-light>
+        <!-- Subtle ambient glow around the light -->
+        <a-light type="point" color="#FFE5CC" intensity="0.2" decay="2" distance="2" position="0 -0.15 0"></a-light>
+      </a-entity>
+
+      <!-- Second Pendant Light -->
+      <a-entity position="1.5 3.5 0">
+        <!-- Black Pendant Housing -->
+        <a-cylinder color="#000000" height="0.3" radius="0.15" position="0 0 0"></a-cylinder>
+        <!-- Black Wire -->
+        <a-cylinder color="#000000" height="0.5" radius="0.02" position="0 0.25 0"></a-cylinder>
+        <!-- Main spotlight pointing down -->
+        <a-light type="spot" color="#FFE5CC" intensity="1.7" angle="75" penumbra="0.8" decay="2" distance="8" position="0 -0.15 0" rotation="-90 0 0"></a-light>
+        <!-- Subtle ambient glow around the light -->
+        <a-light type="point" color="#FFE5CC" intensity="0.2" decay="2" distance="2" position="0 -0.15 0"></a-light>
+      </a-entity>
+
+      <!-- Base ambient light -->
+      <a-light type="ambient" color="#EEF5FF" intensity="0.8"></a-light>
+
+      <!-- Natural window lighting system -->
+      <!-- Main window light sources -->
+      <a-light type="spot" color="#F5FAFA" intensity="1.8" angle="35" penumbra="0.4" decay="1.5" distance="12" position="-0.8 2.8 -3.8" rotation="-85 0 0"></a-light>
+      <a-light type="spot" color="#F5FAFA" intensity="2.0" angle="35" penumbra="0.4" decay="1.5" distance="12" position="-0.4 2.8 -3.8" rotation="-85 0 0"></a-light>
+      <a-light type="spot" color="#F5FAFA" intensity="2.0" angle="35" penumbra="0.4" decay="1.5" distance="12" position="0 2.8 -3.8" rotation="-85 0 0"></a-light>
+      <a-light type="spot" color="#F5FAFA" intensity="2.0" angle="35" penumbra="0.4" decay="1.5" distance="12" position="0.4 2.8 -3.8" rotation="-85 0 0"></a-light>
+      <a-light type="spot" color="#F5FAFA" intensity="1.8" angle="35" penumbra="0.4" decay="1.5" distance="12" position="0.8 2.8 -3.8" rotation="-85 0 0"></a-light>
+
+      <!-- Window light scatter effect -->
+      <a-light type="point" color="#F5FAFA" intensity="0.3" decay="2" distance="4" position="-0.6 2 -3.8"></a-light>
+      <a-light type="point" color="#F5FAFA" intensity="0.3" decay="2" distance="4" position="0.6 2 -3.8"></a-light>
+      
+      <!-- Subtle fill light for window area -->
+      <a-light type="spot" color="#F5FAFA" intensity="0.4" angle="120" penumbra="0.9" decay="2" distance="6" position="0 2 -3.8" rotation="-45 0 0"></a-light>
+    </a-scene>
   </body>
 </html>
